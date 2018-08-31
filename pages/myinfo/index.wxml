@@ -1,0 +1,37 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title"></view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-cell">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;" >
+                <image bindtap="setUserInfo" src="{{avatarUrl}}" background-size="cover" class="userinfo-avatar"/></view>
+            <view class="weui-cell__hd">
+                <view bindtap="setUserInfo" class="userinfo-nickname">{{nickName}}</view>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title" style="font-size:16px;">
+            <navigator url="/pages/collectlist/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                  我的收藏
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                  <button open-type='openSetting' style='font-size:16px;'>修改权限</button>
+                </view>
+                
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-footer weui-footer_fixed-bottom" style="font-size:14px;">
+      <view bindtap='showActions'><!--http://or5tvkzs8.bkt.clouddn.com/image/gongzhonghao.jpg-->
+        <image mode="widthFix" style="width: 48px; height: 48px;" src="/pages/images/qrcode.png"></image>
+      </view>
+      <view bindtap='showActions' class="weui-footer__text">"英语课代表史莱克"</view>
+      <view class="weui-footer__text">点击图片或文字关注公众号</view>
+    </view>
+
+</view>

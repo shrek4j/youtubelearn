@@ -1,0 +1,18 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-panel">
+            <view class="weui-panel__hd" style="color:#333;">
+              <view style="display:inline;">我的收藏</view>
+            </view>
+            <view class="weui-panel__bd">
+             <block wx:for="{{contentList}}">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__title weui-media-box__title_in-text" bindtap="showworddetail" data-word="{{item.word}}">
+                    {{item.num}}.{{item.word}}
+                    </view>
+                </view>
+              </block>
+            </view>
+        </view>
+    </view>
+</view>

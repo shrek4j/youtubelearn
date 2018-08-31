@@ -1,0 +1,37 @@
+{
+  "pages":[
+    "pages/videopage/videolist",
+    "pages/videopage/detailindex",
+    "pages/videopage/index",
+    "pages/videopage/sentence",
+    "pages/videopage/word",
+    "pages/myinfo/index",
+    "pages/collectlist/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#191",
+    "navigationBarTitleText": "油管学英语",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "color":"#aaa",
+    "selectedColor": "#119911",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/videopage/videolist",
+        "iconPath": "pages/images/video.png",
+        "selectedIconPath":"pages/images/video-fill.png",
+        "text": "列表"
+      },
+      {
+        "pagePath": "pages/myinfo/index",
+        "iconPath": "pages/images/meh.png",
+        "selectedIconPath": "pages/images/smile.png",
+        "text": "我"
+      }
+    ]
+  }
+}

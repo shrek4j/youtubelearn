@@ -1,0 +1,16 @@
+.userinfo-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  font-size: 16px;
+  color: #888888;
+  padding-bottom:15rpx;
+}
+
+.weui-footer{
+    margin-bottom: 15px;
+}

@@ -1,0 +1,26 @@
+.morpheme{
+  display:flex;
+  font-size:16px;
+  margin-top:15px;
+  margin-left:15px;
+}
+
+.morpheme-style{
+  display:flex;
+  font-size:16px;
+  margin-top:5px;
+  margin-left:15px;
+}
+
+.letterpicker{
+  margin:1em;
+  font-size:14px;
+}
+
+.done{
+  background-color:#f58220;color:white;
+}
+
+.undone{
+  background-color:white;color:#f58220;border: solid #f58220 1px;
+}
