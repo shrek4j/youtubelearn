@@ -5,9 +5,13 @@
     "pages/videopage/index",
     "pages/videopage/sentence",
     "pages/videopage/word",
+    "pages/audiopage/audiolist",
     "pages/myinfo/index",
     "pages/collectlist/index",
     "pages/logs/logs"
+  ],
+  "requiredBackgroundModes": [
+    "audio"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -24,7 +28,13 @@
         "pagePath": "pages/videopage/videolist",
         "iconPath": "pages/images/video.png",
         "selectedIconPath":"pages/images/video-fill.png",
-        "text": "列表"
+        "text": "视频"
+      },
+      {
+        "pagePath": "pages/audiopage/audiolist",
+        "iconPath": "pages/images/sound.png",
+        "selectedIconPath": "pages/images/sound-fill.png",
+        "text": "音频"
       },
       {
         "pagePath": "pages/myinfo/index",

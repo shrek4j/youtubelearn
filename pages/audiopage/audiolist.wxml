@@ -1,0 +1,29 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="top-presenter">
+      <view style="font-size:14px;height:20px;line-height:20px;">音频</view>
+    </view>
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <block wx:for="{{contentList}}" wx:key="{{index}}">
+          
+          <view class="weui-media-box weui-media-box_text text-center">
+            <view style='margin-right:10px;'><view class="ctrl-btn" wx:if="{{playStatus == 1 && audioPointer == index}}"><image mode="widthFix" style='width:32px;height:32px;' src='/pages/images/pause.png' bindtap="pauseAudio" data-vidx="{{index}}"></image></view>
+    <view class="ctrl-btn" wx:else><image mode="widthFix" style='width:32px;height:32px;' src='/pages/images/play.png' bindtap="playAudio" data-vidx="{{index}}"></image></view></view>
+            <view>
+              <view class="weui-media-box__title weui-media-box__title_in-text video-title">
+                <view><text>Title : {{item.eng_title}}</text></view>
+              </view>
+              <view class="weui-media-box__title weui-media-box__title_in-text video-title">
+                <text>标题：{{item.cn_title}}</text>
+              </view>
+              <view class="weui-media-box__desc">
+                <view>日期：{{item.date}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
