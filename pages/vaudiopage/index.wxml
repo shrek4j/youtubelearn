@@ -1,0 +1,19 @@
+<view class="page">
+  <!--index.wxml-->
+  <text class="text-center" style='width:85%;padding:5px 7%;'>{{engTitle}}</text>
+  <view class='learn-ctrl-bar'>
+    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toDetailPage">精读</button></view>
+ <!--    <view class="ctrl-btn"><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/{{playBtn}}.png' bindtap="changePlayStatus"></image></view> -->
+    <view class="ctrl-btn" wx:if="{{playStatus == 1}}"><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/pause.png' bindtap="changePlayStatus"></image></view>
+    <view class="ctrl-btn" wx:else><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/play.png' bindtap="changePlayStatus"></image></view>
+    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toExplainPage">讲解</button></view>
+  </view>
+
+  <scroll-view class='fanting-panel' scroll-y scroll-with-animation="true" enable-back-to-top="true" scroll-into-view="sub_{{showLine}}">
+    <block wx:for="{{subArr}}" wx:key="index">
+      <view wx:if="{{index == currSubLine}}" data-index="{{index}}" id="sub_{{index}}" class="fanting-subtitle fanting-highlight">{{index+1}}. {{item}}</view>
+      <view wx:else data-index="{{index}}" id="sub_{{index}}" class='fanting-subtitle'>{{index+1}}. {{item}}</view>
+    </block>
+  </scroll-view>
+
+</view>

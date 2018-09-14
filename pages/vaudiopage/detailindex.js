@@ -16,6 +16,7 @@ var shouldUpdate = 1
 var playRatePointer = 1
 var rates = [0.5,1.0,1.25]
 var ratesStr = ["0.5X", "1.0X"]
+var audioContext = null
 
 var currWord = ""
 Page({
@@ -24,7 +25,14 @@ Page({
     var subtitleUrl = decodeURIComponent(params.subtitleUrl);
     var engTitle = decodeURIComponent(params.engTitle);
     var cnTitle = decodeURIComponent(params.cnTitle);
+    var audioUrl = decodeURIComponent(params.audioUrl);
+    
     wx.setNavigationBarTitle({ title: '精读' });
+
+    audioContext = wx.createInnerAudioContext();
+    audioContext.src = audioUrl;
+    audioContext.obeyMuteSwitch = false;
+
     var that = this;
     timeArr = [];
     subArr = [];
@@ -65,20 +73,17 @@ Page({
       }
     })
   },
-  onReady: function (res) {
-    videoContext = wx.createVideoContext('myVideo')
-  },
   bindtimeupdate : function(e){
     if(shouldUpdate == 0){
       return
     }
     var that = this;
-    var currentTime = parseFloat(e.detail.currentTime)
+    var currentTime = parseFloat(audioContext.currentTime)
     if (learnMode == 2){//精听逻辑   循环单句播放
       if (progressPointer2 == 0 || currentTime + 5 >= timeArr[progressPointer2]) {//正常播放或前进
         if (progressPointer2 < timeArr.length - 1 && currentTime >= timeArr[progressPointer2 + 1]) {
           if (currentTime < parseFloat(timeArr[progressPointer2 + 1]) + 5) {//正常单句循环
-            videoContext.seek(parseFloat(timeArr[progressPointer2]));
+            audioContext.seek(parseFloat(timeArr[progressPointer2]));
           } else {//跳转到视频当前句
             for (var i = progressPointer2; i < timeArr.length; i++) {
               var thisTime = timeArr[i]
@@ -109,7 +114,7 @@ Page({
     }
   },
   longTap : function(e){
-    videoContext.pause();
+    audioContext.pause();
     wx.navigateTo({
       url: 'sentence?sen=' + subArr[e.target.dataset.index]
     })
@@ -117,7 +122,7 @@ Page({
   },
   onShareAppMessage: function () {
     var title = '油管学英语'
-    var path = '/pages/videopage/index'
+    var path = '/pages/vaudiopage/index'
     return {
       title: title,
       path: path,
@@ -140,12 +145,12 @@ Page({
     var that = this
     if(learnMode == 1){
       learnMode = 2
-      videoContext.pause();
-      videoContext.seek(timeArr[progressPointer2]);
+      audioContext.pause();
+      audioContext.seek(timeArr[progressPointer2]);
     }else{
       learnMode = 1
-      videoContext.pause();
-      videoContext.seek(timeArr[progressPointer]);
+      audioContext.pause();
+      audioContext.seek(timeArr[progressPointer]);
     }
     that.setData({
       learnMode:learnMode
@@ -153,7 +158,7 @@ Page({
   },
   goto : function (e){
     shouldUpdate = 0
-    videoContext.pause();
+    audioContext.pause();
     var that = this
     var step = e.target.dataset.step
     if(progressPointer2 == 0 && step < 0){
@@ -162,11 +167,11 @@ Page({
     }
     progressPointer2 = progressPointer2 + parseInt(step)
     //set video
-    videoContext.seek(timeArr[progressPointer2]);
+    audioContext.seek(timeArr[progressPointer2]);
     playStatus = 1
     //set sub
     that.setCurrSubWds();
-    videoContext.play();
+    audioContext.play();
     shouldUpdate = 1
   },
   changePlayStatus : function (){
@@ -176,11 +181,16 @@ Page({
     if (playStatus == 0){
       playStatus = 1
       playBtn = "pause"
-      videoContext.play();
+      audioContext.play();
+      audioContext.onPlay((res) => {
+        audioContext.onTimeUpdate((res) => {
+          that.bindtimeupdate()
+        });
+      });
     }else{
       playStatus = 0
       playBtn = "play"
-      videoContext.pause();
+      audioContext.pause();
     }
     //set status
     that.setData({
@@ -228,47 +238,12 @@ Page({
       currCount: progressPointer2 + 1
     });
   },
-  bindplay:function(){
-    var that = this
-    //set video
-    playStatus = 1
-    var playBtn = "pause"
-    
-    //set status
-    that.setData({
-      playStatus: playStatus,
-      playBtn: playBtn
-    });
-  },
-  bindpause: function () {
-    var that = this
-    //set video
-    playStatus = 0
-    var playBtn = "play"
-
-    //set status
-    that.setData({
-      playStatus: playStatus,
-      playBtn: playBtn
-    });
-  },
-  changePlayRate : function(){
-    var that = this
-    playRatePointer += 1
-    if (playRatePointer == rates.length){
-      playRatePointer = 0
-    }
-    videoContext.playbackRate(rates[playRatePointer]);
-    that.setData({
-      playRate: ratesStr[playRatePointer]
-    })
-  },
   showWordExplain: function(e){
     var wd = e.target.dataset.wd
     if(!wd.match(/[a-zA-Z0-9']/)){
       return
     }
-    videoContext.pause();
+    audioContext.pause();
     wx.navigateTo({
       url: 'word?wd=' + wd
     })

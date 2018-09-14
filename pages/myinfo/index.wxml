@@ -27,7 +27,7 @@
     </view>
 
     <view class="weui-footer weui-footer_fixed-bottom" style="font-size:14px;">
-      <view bindtap='showActions'><!--http://or5tvkzs8.bkt.clouddn.com/image/gongzhonghao.jpg-->
+      <view bindtap='showActions'><!--http://main.cdn.odinseyedict.com/image/gongzhonghao.jpg-->
         <image mode="widthFix" style="width: 48px; height: 48px;" src="/pages/images/qrcode.png"></image>
       </view>
       <view bindtap='showActions' class="weui-footer__text">"英语课代表史莱克"</view>

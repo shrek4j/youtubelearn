@@ -1,0 +1,61 @@
+/**index.wxss**/
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  font-size:14px;
+  margin-top:10px;
+}
+
+.learn-ctrl-bar{
+  margin:20px 30px 10px 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ctrl-btn{
+  margin-left:15px;
+  margin-right:15px;
+}
+
+.ctrl-btn-btn{
+  background-color:white;color:#191;border:1.5px solid #191;
+}
+
+.progress-btn{
+  color:white;
+  background-color:#FF8800;
+}
+
+.fanting-subtitle{
+  color: #aaa;
+  font-size:14px;
+  margin:10px 0px 10px 0px;
+}
+
+.fanting-highlight{
+  color:rgb(235, 86, 28);
+  font-size:16px;
+}
+
+.fanting-panel{
+  margin:10px 0px 0px 30px;
+  height:200px;
+  width:85%;
+}
+
+.video-panel{
+  margin:10px 0px 15px 0px;
+  width:100%;
+}
+
+

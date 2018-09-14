@@ -1,0 +1,15 @@
+<view class="page">
+  <view wx:if="{{isExplained == 0}}" class='text-center' style='margin-top:25%;'>
+    讲解制作中... (๑•̀ㅂ•́)و
+  </view>
+  <view wx:else>
+    <view class='text-center' style='margin-top:20px;'>
+      <audio id="myAudio" name="讲解音频" author="{{explainer}}" src="{{explainAudioUrl}}" controls loop></audio>
+    </view>
+    <view class='explain-panel'>
+      <block wx:for="{{lines}}" wx:key="index">
+        <view class='explain-line'>{{item}}</view>
+      </block>
+    </view>
+  </view>
+</view>

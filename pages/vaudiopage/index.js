@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var videoContext = null
+var audioContext = null
 var learnMode = 1 //1 泛听  2 精听
 var timeArr = []
 var subArr = [] 
@@ -24,6 +24,7 @@ var cnTitle = ""
 var explainAudioUrl = ""
 var explainTextUrl = ""
 var explainer = ""
+var audioUrl = ""
 var vidx = 0
 
 var currWord = ""
@@ -37,8 +38,13 @@ Page({
     explainAudioUrl = decodeURIComponent(params.explainAudioUrl)
     explainTextUrl = decodeURIComponent(params.explainTextUrl)
     explainer = decodeURIComponent(params.explainer)
+    audioUrl = decodeURIComponent(params.audioUrl)
 
     wx.setNavigationBarTitle({ title: '泛听' });
+
+    audioContext = wx.createInnerAudioContext();
+    audioContext.src = audioUrl;
+    audioContext.obeyMuteSwitch = false;
 
     var that = this;
     wx.request({
@@ -76,15 +82,13 @@ Page({
       }
     })
   },
-  onReady: function (res) {
-    videoContext = wx.createVideoContext('myVideo')
-  },
-  bindtimeupdate : function(e){
+
+  bindtimeupdate : function(){
     if(shouldUpdate == 0){
       return
     }
     var that = this;
-    var currentTime = parseFloat(e.detail.currentTime)
+    var currentTime = parseFloat(audioContext.currentTime)
     if (learnMode == 1){//泛听逻辑  持续播放
       if (progressPointer == 0 || (progressPointer > 0 && currentTime >= timeArr[progressPointer-1])) {//正常播放或前进
         //全部读取完毕
@@ -132,7 +136,7 @@ Page({
   },
   onShareAppMessage: function () {
     var title = '油管学英语'
-    var path = '/pages/videopage/index'
+    var path = '/pages/vaudiopage/index'
     return {
       title: title,
       path: path,
@@ -152,13 +156,13 @@ Page({
     }
   },
   toDetailPage: function(e) {
-    videoContext.pause();
+    audioContext.pause();
     wx.navigateTo({
-      url: 'detailindex?videoUrl=' + videoUrl + "&subtitleUrl=" + subtitleUrl + "&engTitle=" + engTitle + "&cnTitle=" + cnTitle,
+      url: 'detailindex?videoUrl=' + videoUrl + "&subtitleUrl=" + subtitleUrl + "&engTitle=" + engTitle + "&cnTitle=" + cnTitle + "&audioUrl=" + audioUrl,
     })
   },
   toExplainPage:function(e){
-    videoContext.pause();
+    audioContext.pause();
     if (explainTextUrl == null || explainTextUrl == "null" || explainTextUrl == "" || explainAudioUrl == null || explainAudioUrl == "null" || explainAudioUrl == "") {
     ;
       wx.showToast({
@@ -179,11 +183,16 @@ Page({
     if (playStatus == 0) {
       playStatus = 1
       playBtn = "pause"
-      videoContext.play();
+      audioContext.play();
+      audioContext.onPlay((res)=> {
+        audioContext.onTimeUpdate((res) => {
+          that.bindtimeupdate()
+        });
+      });
     } else {
       playStatus = 0
       playBtn = "play"
-      videoContext.pause();
+      audioContext.pause();
     }
     //set status
     that.setData({
@@ -229,40 +238,5 @@ Page({
       currSen: currSen,
       wds: wds
     });
-  },
-  bindplay:function(){
-    var that = this
-    //set video
-    playStatus = 1
-    var playBtn = "pause"
-    
-    //set status
-    that.setData({
-      playStatus: playStatus,
-      playBtn: playBtn
-    });
-  },
-  bindpause: function () {
-    var that = this
-    //set video
-    playStatus = 0
-    var playBtn = "play"
-
-    //set status
-    that.setData({
-      playStatus: playStatus,
-      playBtn: playBtn
-    });
-  },
-  changePlayRate : function(){
-    var that = this
-    playRatePointer += 1
-    if (playRatePointer == rates.length){
-      playRatePointer = 0
-    }
-    videoContext.playbackRate(rates[playRatePointer]);
-    that.setData({
-      playRate: ratesStr[playRatePointer]
-    })
   }
 })

@@ -77,8 +77,9 @@ Page({
     var explainAudioUrl = encodeURIComponent(that.data.contentList[index]['explain_audio_url'])
     var explainTextUrl = encodeURIComponent(that.data.contentList[index]['explain_text_url'])
     var explainer = encodeURIComponent(that.data.contentList[index]['explainer'])
+    var audioUrl = encodeURIComponent(that.data.contentList[index]['audio_url'])
     wx.navigateTo({
-      url: 'index?videoUrl=' + videoUrl + "&subtitleUrl=" + subtitleUrl + "&engTitle=" + engTitle + "&cnTitle=" + cnTitle + "&vidx=" + index + "&explainAudioUrl=" + explainAudioUrl + "&explainTextUrl=" + explainTextUrl + "&explainer=" + explainer,
+      url: 'index?videoUrl=' + videoUrl + "&subtitleUrl=" + subtitleUrl + "&engTitle=" + engTitle + "&cnTitle=" + cnTitle + "&vidx=" + index + "&explainAudioUrl=" + explainAudioUrl + "&explainTextUrl=" + explainTextUrl + "&explainer=" + explainer + "&audioUrl=" + audioUrl,
     })
   }
 })
