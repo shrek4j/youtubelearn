@@ -32,6 +32,12 @@
         "text": "音频"
       },
       {
+        "pagePath": "pages/audiopage/audiolist",
+        "iconPath": "pages/images/headset.png",
+        "selectedIconPath": "pages/images/headset-fill.png",
+        "text": "听力"
+      },
+      {
         "pagePath": "pages/myinfo/index",
         "iconPath": "pages/images/meh.png",
         "selectedIconPath": "pages/images/smile.png",

@@ -20,6 +20,10 @@ var audioContext = null
 
 var currWord = ""
 Page({
+  onUnload: function (params){
+    playStatus = 0
+    audioContext.pause();
+  },
   onLoad: function (params) {
     var videoUrl = decodeURIComponent(params.videoUrl);
     var subtitleUrl = decodeURIComponent(params.subtitleUrl);
@@ -29,9 +33,13 @@ Page({
     
     wx.setNavigationBarTitle({ title: '精读' });
 
-    audioContext = wx.createInnerAudioContext();
-    audioContext.src = audioUrl;
-    audioContext.obeyMuteSwitch = false;
+    if (audioContext == null) {
+      audioContext = wx.createInnerAudioContext();
+      audioContext.src = audioUrl;
+      audioContext.obeyMuteSwitch = false;
+    }else{
+      audioContext.seek(parseFloat(timeArr[progressPointer2]));
+    }
 
     var that = this;
     timeArr = [];
@@ -146,11 +154,11 @@ Page({
     if(learnMode == 1){
       learnMode = 2
       audioContext.pause();
-      audioContext.seek(timeArr[progressPointer2]);
+      audioContext.seek(parseFloat(timeArr[progressPointer2]));
     }else{
       learnMode = 1
       audioContext.pause();
-      audioContext.seek(timeArr[progressPointer]);
+      audioContext.seek(parseFloat(timeArr[progressPointer]));
     }
     that.setData({
       learnMode:learnMode
@@ -167,7 +175,7 @@ Page({
     }
     progressPointer2 = progressPointer2 + parseInt(step)
     //set video
-    audioContext.seek(timeArr[progressPointer2]);
+    audioContext.seek(parseFloat(timeArr[progressPointer2]));
     playStatus = 1
     //set sub
     that.setCurrSubWds();
@@ -239,11 +247,20 @@ Page({
     });
   },
   showWordExplain: function(e){
+    var that = this
     var wd = e.target.dataset.wd
     if(!wd.match(/[a-zA-Z0-9']/)){
       return
     }
+
+    playStatus = 0
+    var playBtn = "play"
     audioContext.pause();
+    that.setData({
+      playStatus: playStatus,
+      playBtn: playBtn
+    });
+
     wx.navigateTo({
       url: 'word?wd=' + wd
     })

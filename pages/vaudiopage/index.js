@@ -25,10 +25,15 @@ var explainAudioUrl = ""
 var explainTextUrl = ""
 var explainer = ""
 var audioUrl = ""
+var videoHint = ""
 var vidx = 0
 
 var currWord = ""
 Page({
+  onUnload: function (params) {
+    playStatus = 0
+    audioContext.pause();
+  },
   onLoad: function (params) {
     vidx = decodeURIComponent(params.vidx)
     videoUrl = decodeURIComponent(params.videoUrl)
@@ -39,13 +44,16 @@ Page({
     explainTextUrl = decodeURIComponent(params.explainTextUrl)
     explainer = decodeURIComponent(params.explainer)
     audioUrl = decodeURIComponent(params.audioUrl)
+    videoHint = decodeURIComponent(params.videoHint)
 
     wx.setNavigationBarTitle({ title: '泛听' });
 
-    audioContext = wx.createInnerAudioContext();
-    audioContext.src = audioUrl;
-    audioContext.obeyMuteSwitch = false;
-
+    if(audioContext == null){
+      audioContext = wx.createInnerAudioContext();
+      audioContext.src = audioUrl;
+      audioContext.obeyMuteSwitch = false;
+    }
+    
     var that = this;
     wx.request({
       url: subtitleUrl,
@@ -73,7 +81,8 @@ Page({
           currSub: subArr[0],
           playStatus: playStatus,
           playBtn:"pause",
-          playRate: ratesStr[playRatePointer]
+          playRate: ratesStr[playRatePointer],
+          videoHint: videoHint
         });
         that.setCurrSubWds();
       },
@@ -106,7 +115,8 @@ Page({
             var showLine = currSubLine - 1 < 0 ? 0 : currSubLine - 1;
             that.setData({
               currSubLine: currSubLine,
-              showLine: showLine
+              showLine: showLine,
+              timePercent: audioContext.currentTime * 100 / audioContext.duration
             });
             break
           } else {
@@ -124,7 +134,8 @@ Page({
             //set sub
             that.setData({
               currSubLine: currSubLine,
-              showLine: showLine
+              showLine: showLine,
+              timePercent: audioContext.currentTime * 100 / audioContext.duration
             });
             break
           } else {
@@ -156,21 +167,34 @@ Page({
     }
   },
   toDetailPage: function(e) {
+    var that = this
+    playStatus = 0
+    var playBtn = "play"
     audioContext.pause();
+    that.setData({
+      playStatus: playStatus,
+      playBtn: playBtn
+    });
     wx.navigateTo({
       url: 'detailindex?videoUrl=' + videoUrl + "&subtitleUrl=" + subtitleUrl + "&engTitle=" + engTitle + "&cnTitle=" + cnTitle + "&audioUrl=" + audioUrl,
     })
   },
   toExplainPage:function(e){
-    audioContext.pause();
+    var that = this
     if (explainTextUrl == null || explainTextUrl == "null" || explainTextUrl == "" || explainAudioUrl == null || explainAudioUrl == "null" || explainAudioUrl == "") {
-    ;
       wx.showToast({
         title: "努力制作中，请稍后再来... (๑•̀ㅂ•́)و",
         icon: 'none',
         duration: 5000
       })
     }else{
+      playStatus = 0
+      var playBtn = "play"
+      audioContext.pause();
+      that.setData({
+        playStatus: playStatus,
+        playBtn: playBtn
+      });
       wx.navigateTo({
         url: 'explain?vidx=' + vidx + "&explainAudioUrl=" + explainAudioUrl + "&explainTextUrl=" + explainTextUrl + "&explainer=" + explainer,
       })
@@ -238,5 +262,54 @@ Page({
       currSen: currSen,
       wds: wds
     });
+  },
+  showActions: function () {
+    wx.showActionSheet({
+      itemList: ['下载二维码', '复制公众号'],
+      success: function (res) {
+        var val = res.tapIndex
+        if (val == 0) {
+          wx.downloadFile({
+            url: "https://odin.bajiaoshan893.com/Public/img/gongzhonghao.jpg",
+            success: function (res) {
+              wx.saveImageToPhotosAlbum({
+                filePath: res.tempFilePath,
+                success: function (data) {
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'success',
+                    duration: 2000
+                  })
+                },
+                fail: function (err) {
+                  if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
+                    wx.showToast({
+                      title: '保存失败！请先设置保存权限',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                  }
+                }
+              })
+            }
+          })
+        }
+        if (val == 1) {
+          wx.setClipboardData({
+            data: "英语课代表史莱克",
+            success: function (res) {
+              wx.getClipboardData({
+                success: function (res) {
+
+                }
+              })
+            }
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
   }
 })

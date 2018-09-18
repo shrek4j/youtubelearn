@@ -1,9 +1,6 @@
 <view class="page">
   <!--index.wxml-->
   <text class="text-center" style='width:85%;padding:5px 7%;'>{{engTitle}}</text>
-  <view class="text-center video-panel">
- <!--    <video id="myVideo" src="{{videoUrl}}" style="width:90%;" controls="{{true}}"	show-center-play-btn="{{false}}" show-play-btn="{{false}}" bindtimeupdate="bindtimeupdate" bindplay='bindplay' bindpause='bindpause'></video> -->
-  </view>
   <view class="learn-progress-bar">
     <view class="ctrl-btn"><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/prev.png' bindtap="goto" data-step="-1"></image></view>
     <view class="ctrl-btn" wx:if="{{playStatus == 1}}"><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/pause.png' bindtap="changePlayStatus"></image></view>
@@ -22,5 +19,5 @@
   <view class="weui-footer weui-footer_fixed-bottom">
     <view class="weui-footer__text">*点击单词查看详细解释*</view>
   </view>
-
+  
 </view>

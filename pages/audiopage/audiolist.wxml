@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__bd">
     <view class="top-presenter">
-      <view style="font-size:14px;height:20px;line-height:20px;">音频</view>
+      <view style="font-size:14px;height:20px;line-height:20px;">听力</view>
     </view>
     <view class="weui-panel">
       <view class="weui-panel__bd">

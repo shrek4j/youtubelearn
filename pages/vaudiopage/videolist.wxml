@@ -7,18 +7,16 @@
       <view class="weui-panel__bd">
         <block wx:for="{{contentList}}" wx:key="{{index}}">
           <view bindtap="showVideoPage" data-vidx="{{index}}" class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text video-title">
-              <text bindtap="showVideoPage" data-vidx="{{index}}">Title : {{item.eng_title}}</text>
+            <view data-vidx="{{index}}" class="weui-media-box__title weui-media-box__title_in-text video-title">
+              <text data-vidx="{{index}}">Title : {{item.eng_title}}</text>
             </view>
-            <view  class="weui-media-box__title weui-media-box__title_in-text video-title">
-              <text bindtap="showVideoPage" data-vidx="{{index}}">标题：{{item.cn_title}}</text>
+            <view data-vidx="{{index}}" class="weui-media-box__title weui-media-box__title_in-text video-title">
+              <text data-vidx="{{index}}">标题：{{item.cn_title}}</text>
             </view>
-            <view  class="weui-media-box__desc">
-              <view bindtap="showVideoPage" data-vidx="{{index}}">日期：{{item.date}}</view>
-            </view>
-            <view  class="weui-media-box__desc" style="margin-top:0.3em;">
-              <text bindtap="showVideoPage" data-vidx="{{index}}">状态：未学习</text>
-              <text bindtap="showVideoPage" data-vidx="{{index}}" style='margin-left:20px;'>{{item.learn_count}}人已学</text>
+            <view data-vidx="{{index}}" class="weui-media-box__desc">
+              <view data-vidx="{{index}}">
+                <text data-vidx="{{index}}">日期：{{item.date}}</text><text data-vidx="{{index}}" style='margin-left:20px;'>{{item.learn_count}}人已学</text>
+              </view>
             </view>
           </view>
         </block>

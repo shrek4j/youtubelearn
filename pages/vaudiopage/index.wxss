@@ -14,12 +14,27 @@
   margin-top:10px;
 }
 
+.text-left {
+  display: flex;
+  flex-direction: column;
+  color: #aaa;
+  font-size:12px;
+  width:85%;
+  padding:0px 7%;
+}
+
 .learn-ctrl-bar{
   margin:20px 30px 10px 30px;
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
+}
+
+.learn-ctrl-bar-2{
+  margin:20px 30px 10px 30px;
+  display: flex;
+  flex-direction: row;
 }
 
 .ctrl-btn{
@@ -49,7 +64,7 @@
 
 .fanting-panel{
   margin:10px 0px 0px 30px;
-  height:200px;
+  height:280px;
   width:85%;
 }
 
