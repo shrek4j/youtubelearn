@@ -181,7 +181,7 @@ Page({
   },
   toExplainPage:function(e){
     var that = this
-    if (explainTextUrl == null || explainTextUrl == "null" || explainTextUrl == "" || explainAudioUrl == null || explainAudioUrl == "null" || explainAudioUrl == "") {
+    if ((explainTextUrl == null || explainTextUrl == "null" || explainTextUrl == "") && (explainAudioUrl == null || explainAudioUrl == "null" || explainAudioUrl == "")){
       wx.showToast({
         title: "努力制作中，请稍后再来... (๑•̀ㅂ•́)و",
         icon: 'none',
@@ -265,30 +265,16 @@ Page({
   },
   showActions: function () {
     wx.showActionSheet({
-      itemList: ['下载二维码', '复制公众号'],
+      itemList: ['复制公众号', '复制视频码'],
       success: function (res) {
         var val = res.tapIndex
         if (val == 0) {
-          wx.downloadFile({
-            url: "https://odin.bajiaoshan893.com/Public/img/gongzhonghao.jpg",
+          wx.setClipboardData({
+            data: "英语课代表史莱克",
             success: function (res) {
-              wx.saveImageToPhotosAlbum({
-                filePath: res.tempFilePath,
-                success: function (data) {
-                  wx.showToast({
-                    title: '保存成功',
-                    icon: 'success',
-                    duration: 2000
-                  })
-                },
-                fail: function (err) {
-                  if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
-                    wx.showToast({
-                      title: '保存失败！请先设置保存权限',
-                      icon: 'none',
-                      duration: 2000
-                    })
-                  }
+              wx.getClipboardData({
+                success: function (res) {
+
                 }
               })
             }
@@ -296,7 +282,7 @@ Page({
         }
         if (val == 1) {
           wx.setClipboardData({
-            data: "英语课代表史莱克",
+            data: videoHint,
             success: function (res) {
               wx.getClipboardData({
                 success: function (res) {

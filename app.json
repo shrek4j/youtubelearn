@@ -29,13 +29,13 @@
         "pagePath": "pages/vaudiopage/videolist",
         "iconPath": "pages/images/sound.png",
         "selectedIconPath": "pages/images/sound-fill.png",
-        "text": "音频"
+        "text": "听读"
       },
       {
         "pagePath": "pages/audiopage/audiolist",
         "iconPath": "pages/images/headset.png",
         "selectedIconPath": "pages/images/headset-fill.png",
-        "text": "听力"
+        "text": "复听"
       },
       {
         "pagePath": "pages/myinfo/index",

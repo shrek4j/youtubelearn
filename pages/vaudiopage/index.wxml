@@ -2,14 +2,13 @@
   <!--index.wxml-->
   <text class="text-center" style='width:85%;padding:5px 7%;'>{{engTitle}}</text>
   <view class="text-left" wx:if="{{videoHint}}" bindtap='showActions'>
-    <text>1.搜索公众号"英语课代表史莱克" </text>
-    <text>2.对话框输入"{{videoHint}}"查看完整视频</text>
+    <view>搜索公众号"英语课代表史莱克"，对话框发送"{{videoHint}}"观看视频<text style='font-size:12px;'>（点击快速复制）</text></view>
   </view>
   <view class='learn-ctrl-bar'>
-    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toDetailPage">精读</button></view>
+    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toExplainPage">讲解</button></view>
     <view class="ctrl-btn" wx:if="{{playStatus == 1}}"><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/pause.png' bindtap="changePlayStatus"></image></view>
     <view class="ctrl-btn" wx:else><image mode="widthFix" style='width:40px;height:40px;' src='/pages/images/play.png' bindtap="changePlayStatus"></image></view>
-    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toExplainPage">讲解</button></view>
+    <view class="ctrl-btn"><button class='ctrl-btn-btn' size="mini" bindtap="toDetailPage">精读</button></view>
   </view>
 
   <view style='margin:10px 30px 20px 30px;'>

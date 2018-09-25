@@ -9,7 +9,7 @@ Page({
     var explainTextUrl = decodeURIComponent(params.explainTextUrl)
     var explainer = decodeURIComponent(params.explainer)
     var that = this
-    if (explainTextUrl == null || explainTextUrl == "null" || explainAudioUrl == null || explainAudioUrl == "null"){
+    if ((explainTextUrl == null || explainTextUrl == "null" || explainTextUrl == "") && (explainAudioUrl == null || explainAudioUrl == "null" || explainAudioUrl == "")){
       that.setData({
         isExplained : 0
       });
